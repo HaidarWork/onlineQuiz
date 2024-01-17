@@ -1,9 +1,7 @@
 import { useState } from "react";
-
-import "./quiz.css";
 import { data } from "../data";
 
-const Quiz = () => {
+const Quiz1 = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
@@ -73,4 +71,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default Quiz1;
