@@ -21,7 +21,7 @@ export default function HomePage() {
       <div className="container">
         <div className="row">
           <div className="logo">
-            <img src={logo} alt="logo" className="" />
+            <img src={logo} alt="logo" />
           </div>
           <div>
             <p className="user">{user.username}</p>
@@ -33,7 +33,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="firstSectinImage">
-          <img src={img} alt="" srcset="" />
+          <img src={img} alt="" />
         </div>
         <div className="firstSectionHeading">
           <h1>

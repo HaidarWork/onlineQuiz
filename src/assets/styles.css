@@ -7,7 +7,7 @@
   width: 100%;
   height: 100%;
   background-size: cover;
-  filter: blur(5px);
+  filter: blur(2px);
 }
 
 body {
@@ -17,7 +17,6 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow: hidden;
   margin: 0;
   padding: 0;
 }
@@ -29,7 +28,7 @@ form {
 form .form-field::before {
   font-size: 20px;
   position: absolute;
-  left: 15px;
+  right: 15px;
   top: 17px;
   color: #888888;
   content: " ";
@@ -75,19 +74,11 @@ form input {
   color: #4A4A4A;
   text-indent: 40px;
 }
-form .btn {
-  outline: none;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 auto;
-  padding: 0.9rem 2.5rem;
-  text-align: center;
-  background-color: #47AB11;
-  color: #fff;
-  border-radius: 4px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-  font-size: 17px;
+
+.error{
+  color: #10023b;
+  font-size: 1.4rem;
+  font-weight: 900;
 }
 
 
@@ -209,8 +200,8 @@ form .btn {
   quiz section 
    */
 .quiz-container {
-  max-width: 500px;
-  min-width: 250px;
+  max-width: 40vw;
+  min-width: 40vw;
   background: #ffffff;
   border-radius: 4px;
   margin-top: 100px;
@@ -221,7 +212,7 @@ form .btn {
 .quiz-container .active-question-no {
   font-size: 32px;
   font-weight: 500;
-  color: #800080;
+  color: #001a80;
 }
 
 .quiz-container .total-question {
@@ -234,11 +225,12 @@ form .btn {
   font-size: 20px;
   font-weight: 500;
   margin: 0;
+  margin-top: 60px;
 }
 
 .quiz-container ul {
-  margin-top: 20px;
-  margin-left: -40px;
+  margin-top: 30px;
+
 }
 
 .quiz-container ul li {
@@ -255,12 +247,12 @@ form .btn {
 }
 
 .quiz-container ul .selected-answer {
-  background: #ffd6ff;
-  border: 1px solid #800080;
+  background: #d6e3ff;
+  border: 1px solid #020080;
 }
 
-.quiz-container button {
-  background: linear-gradient(90.04deg, #800080 0.03%, #ffc0cb 99.96%);
+.btn {
+  background: linear-gradient(90.04deg, #0f0080 0.03%, #c0d3ff 99.96%);
   border-radius: 9px;
   font-size: 18px;
   color: #ffffff;
@@ -269,6 +261,10 @@ form .btn {
   border: none;
   cursor: pointer;
   margin-top: 15px;
+}
+
+.btn:hover{
+  background: linear-gradient(90.04deg, #c0d3ff 0.03%, #0f0080 99%);
 }
 
 .quiz-container button:disabled {
@@ -280,25 +276,80 @@ form .btn {
 .flex-right {
   display: flex;
   justify-content: flex-end;
+  margin-top: 30px;
+
 }
 
+.result{
+  display: grid;
+  gap: 2rem;
+  box-shadow: 0px 0px 3px 1px #d3c6c6b5;
+  border-radius: 4%;
+  padding: 30px 25px 60px 16px;
+  background: #fbfbfb6b;
+  width: 60vw;
+  margin: auto;
+}
 .result h3 {
-  font-size: 24px;
+  font-size: 2rem;
   letter-spacing: 1.4px;
   text-align: center;
 }
 
 .result p {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .result p span {
-  color: #800080;
+  color: #001580;
   font-size: 22px;
 }
 
 
+.show-counter {
+  padding: 0.5rem;
+  display: flex;
+}
+
+.show-counter .countdown-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  padding: 0.5rem;
+  border: 1px solid #ebebeb;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: #000;
+}
+
+.show-counter .countdown {
+  line-height: 1.25rem;
+  padding: 0 0.75rem 0 0.75rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.show-counter .countdown.danger {
+  color: #ff0000;
+}
+
+.show-counter .countdown > p {
+  margin: 0;
+}
+
+.show-counter .countdown > span {
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  line-height: 1rem;
+}
 
 /* 
 footer */

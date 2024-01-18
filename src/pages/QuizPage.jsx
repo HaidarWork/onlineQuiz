@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Quiz from "../component/Quiz";
 import logo from "../assets/img/logo.jpeg";
+import Exam from "../component/Exam";
+import { data } from "../data";
 
 export default function QuizPage() {
+  const thirty_MS = 2 * 60 * 60 * 1000;
+  const NOW_IN_MS = new Date().getTime();
+
+  const timer = NOW_IN_MS + thirty_MS;
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
+  const { questions } = data;
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -31,7 +37,7 @@ export default function QuizPage() {
             </div>
           </div>
         </div>
-        <Quiz />
+        <Exam targetDate={timer} questions={questions} />
       </div>
     </main>
   );

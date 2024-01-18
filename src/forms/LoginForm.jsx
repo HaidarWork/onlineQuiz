@@ -16,10 +16,9 @@ const LoginForm = () => {
     if (usercheck) {
       console.log("Login successful");
       localStorage.setItem("user", JSON.stringify(usercheck));
-      console.log("woooooooooooooooooooooooooooooow");
       navigate("/home");
     } else {
-      setError("Wrong password or username");
+      setError("اسم المستخدم او  كلمة المرور خطأ");
     }
     console.log(usercheck);
   };
@@ -35,21 +34,6 @@ const LoginForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     checkUser();
-    // const hashedPassword = bcrypt.hash(password);
-
-    // try {
-    //   // Hash the user's password and compare it to the stored hash
-    //   const isMatch = bcrypt.compare(password, hashedPassword);
-    //   if (!isMatch) {
-    //     throw new Error("Incorrect password");
-    //   }
-    //   // Password is correct, generate a new JWT
-    //   const token = jwt.sign({ username }, "secretKey", { expiresIn: "24h" });
-    //   // Store the JWT in local storage
-    //   localStorage.setItem("token", token);
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
 
   return (
@@ -72,7 +56,7 @@ const LoginForm = () => {
             onChange={handlePassword}
           />
         </div>
-        {error ? error : ""}
+        {error ? <p className="error">{error}</p> : ""}
         <button type="submit" className="btn">
           Login
         </button>
