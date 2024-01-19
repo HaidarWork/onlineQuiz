@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DateTimeDisplay from "../helper/DateTimeDisplay";
 import { useCountdown } from "../helper/useCountdown";
+import emailjs from "@emailjs/browser";
 
 const Result = ({ quizResult, questions }) => {
   return (
@@ -41,6 +42,7 @@ const ShowTimer = ({ hours, minutes, seconds }) => {
 
 const Exam = ({ targetDate, questions }) => {
   const [activeQuestion, setActiveQuestion] = useState(0);
+  const [user, setUser] = useState();
   const [selectedAnswer, setSelectedAnswer] = useState();
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [hours, minutes, seconds] = useCountdown(targetDate);
@@ -53,6 +55,38 @@ const Exam = ({ targetDate, questions }) => {
   const [answers, setAnswers] = useState([{ id: 0, state: false }]);
 
   const { question, choices, correctAnswer } = questions[activeQuestion];
+
+  useEffect(() => {
+    // const taskCreatedAt = localStorage.getItem("taskCreatedAt");
+    // setTimePassed(Date.now() - Number(taskCreatedAt));
+    const user = JSON.parse(localStorage.getItem("user"));
+    setUser(user);
+  }, []);
+
+  const sendResult = (res) => {
+    emailjs
+      .send(
+        "service_1sczfpn",
+        "template_f35qcjl",
+        {
+          email: user.email,
+          name: user.username,
+          score: result.score,
+          correctAnswer: result.correctAnswers,
+          wrongAnswers: result.wrongAnswers,
+          numOfquestions: questions.length,
+        },
+        "7KPTX0AshuZ9DJs4m"
+      )
+      .then(
+        function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function (error) {
+          console.log("FAILED...", error);
+        }
+      );
+  };
 
   const onClickNext = (e) => {
     e.preventDefault();
@@ -83,6 +117,13 @@ const Exam = ({ targetDate, questions }) => {
     } else {
       setActiveQuestion(0);
       setShowResult(true);
+      const res = {
+        score: result.score,
+        correctAnswer: result.correctAnswers,
+        wrongAnswers: result.wrongAnswers,
+        numOfquestions: questions.length,
+      };
+      sendResult(res);
     }
   };
 
