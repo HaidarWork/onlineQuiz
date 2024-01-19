@@ -41,7 +41,7 @@ const ShowTimer = ({ hours, minutes, seconds }) => {
 
 const Exam = ({ targetDate, questions }) => {
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [selectedAnswer, setSelectedAnswer] = useState();
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [hours, minutes, seconds] = useCountdown(targetDate);
   const [showResult, setShowResult] = useState(false);
@@ -50,6 +50,7 @@ const Exam = ({ targetDate, questions }) => {
     correctAnswers: 0,
     wrongAnswers: 0,
   });
+  const [answers, setAnswers] = useState([{ id: 0, state: false }]);
 
   const { question, choices, correctAnswer } = questions[activeQuestion];
 
@@ -65,12 +66,43 @@ const Exam = ({ targetDate, questions }) => {
           }
         : { ...prev, wrongAnswers: prev.wrongAnswers + 1 }
     );
+    setAnswers((prev) =>
+      selectedAnswer
+        ? [
+            ...prev,
+            {
+              id: answers[activeQuestion].id + 1,
+              state: true,
+            },
+          ]
+        : [...prev, { id: answers[activeQuestion].id + 1, state: false }]
+    );
+    console.log(answers);
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
     } else {
       setActiveQuestion(0);
       setShowResult(true);
     }
+  };
+
+  const onClickPrev = () => {
+    setSelectedAnswerIndex(null);
+    setActiveQuestion((prev) => prev - 1);
+    setResult((prev) =>
+      answers[activeQuestion].state
+        ? {
+            ...prev,
+            score: prev.score - 10,
+            correctAnswers: prev.correctAnswers - 1,
+          }
+        : { ...prev, wrongAnswers: prev.wrongAnswers - 1 }
+    );
+    const updateAnswers = answers.filter(
+      (answer) => answer.id !== activeQuestion
+    );
+    setAnswers(updateAnswers);
+    console.log(updateAnswers);
   };
 
   const onAnswerSelected = (answer, index) => {
@@ -104,7 +136,7 @@ const Exam = ({ targetDate, questions }) => {
         </div>
         <h2>
           {question.split("\n").map((line) => (
-            <div>
+            <div key={line}>
               {line} <br />
             </div>
           ))}
@@ -128,7 +160,14 @@ const Exam = ({ targetDate, questions }) => {
             disabled={selectedAnswerIndex === null}
             className="btn"
           >
-            {activeQuestion === questions.length - 1 ? "Finish" : "Next"}
+            {activeQuestion === questions.length - 1 ? "انهاء" : "التالي"}
+          </button>
+          <button
+            onClick={onClickPrev}
+            disabled={activeQuestion === 0}
+            className="btn"
+          >
+            السابق
           </button>
         </div>
       </div>

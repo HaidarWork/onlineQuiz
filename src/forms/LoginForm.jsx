@@ -14,13 +14,13 @@ const LoginForm = () => {
       (user) => user.email === email && user.password === password
     );
     if (usercheck) {
-      console.log("Login successful");
       localStorage.setItem("user", JSON.stringify(usercheck));
+      localStorage.setItem("taskCreatedAt", new Date());
+
       navigate("/home");
     } else {
       setError("اسم المستخدم او  كلمة المرور خطأ");
     }
-    console.log(usercheck);
   };
 
   const handleEmail = (e) => {

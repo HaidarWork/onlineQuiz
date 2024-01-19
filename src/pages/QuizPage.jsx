@@ -9,18 +9,26 @@ export default function QuizPage() {
   const NOW_IN_MS = new Date().getTime();
 
   const timer = NOW_IN_MS + thirty_MS;
+  const { questions } = data;
+  const [timePassed, setTimePassed] = useState();
+
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
-  const { questions } = data;
 
   useEffect(() => {
+    const taskCreatedAt = localStorage.getItem("taskCreatedAt");
+    setTimePassed(Date.now() - Number(taskCreatedAt));
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       setUser(user);
     } else {
       navigate("/login");
     }
-  }, [navigate]);
+
+    if (timePassed > 3 * 60 * 60 * 1000) {
+      localStorage.removeItem("user");
+    }
+  }, [navigate, timePassed, timer]);
   return (
     <main>
       <div className="container">
@@ -33,7 +41,7 @@ export default function QuizPage() {
           </div>
           <div className="sectionSearch">
             <div className="searchBox">
-              <p>Quiz Page</p>
+              <p>CIA part 2 test</p>
             </div>
           </div>
         </div>
