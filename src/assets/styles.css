@@ -75,6 +75,20 @@ form input {
   text-indent: 40px;
 }
 
+.login-btn{
+  background: #00ff0a;
+  border-radius: 9px;
+  font-size: 18px;
+  color: #060606;
+  padding: 10px 42px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: 900;
+  box-shadow: 0px 0px 7px 1px #0cef0c;
+}
+
 .error{
   color: #10023b;
   font-size: 1.4rem;

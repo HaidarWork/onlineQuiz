@@ -57,8 +57,8 @@ const LoginForm = () => {
           />
         </div>
         {error ? <p className="error">{error}</p> : ""}
-        <button type="submit" className="btn">
-          Login
+        <button type="submit" className="login-btn">
+          تسجيل دخول
         </button>
       </form>
     </div>

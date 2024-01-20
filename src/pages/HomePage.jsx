@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import img from "../assets/img/exam.png";
 import logo from "../assets/img/logo.jpeg";
 import Footer from "../component/Footer";
+import { data } from "../data";
+
+const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+
 export default function HomePage() {
+  // const history = useHistory();
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
+  const { questions } = data;
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -15,6 +21,12 @@ export default function HomePage() {
       navigate("/login");
     }
   }, [navigate]);
+
+  const handleClick = () => {
+    const shuflledQuestions = shuffle(questions);
+    console.log(shuflledQuestions);
+    navigate("/home/quiz", { state: shuflledQuestions });
+  };
 
   return (
     <main>
@@ -42,8 +54,15 @@ export default function HomePage() {
           <h1 className="letterSpacing">
             الجزء <span>الثاني</span>
           </h1>
-          <button className="btnBuyNow">
-            <NavLink to="/home/quiz">ابدأ الامتحان</NavLink>
+          <button className="btnBuyNow" onClick={handleClick}>
+            {/* <Link
+              to={{
+                pathname: `/home/quiz`,
+                state: shuflledQuestions,
+              }}
+            > */}
+            ابدأ الامتحان
+            {/* </Link> */}
           </button>
         </div>
         <Footer />

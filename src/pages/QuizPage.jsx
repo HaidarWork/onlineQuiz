@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/img/logo.jpeg";
 import Exam from "../component/Exam";
-import { data } from "../data";
 
-export default function QuizPage() {
+export default function QuizPage(props) {
   const thirty_MS = 2 * 60 * 60 * 1000;
   const NOW_IN_MS = new Date().getTime();
 
   const timer = NOW_IN_MS + thirty_MS;
-  const { questions } = data;
-  const [timePassed, setTimePassed] = useState();
+  const { state } = useLocation();
+  const shuflledQuestions = state;
 
+  const [timePassed, setTimePassed] = useState();
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export default function QuizPage() {
     if (timePassed > 3 * 60 * 60 * 1000) {
       localStorage.removeItem("user");
     }
-  }, [navigate, timePassed, timer]);
+  }, [navigate, timePassed, timer, shuflledQuestions]);
   return (
     <main>
       <div className="container">
@@ -45,7 +45,7 @@ export default function QuizPage() {
             </div>
           </div>
         </div>
-        <Exam targetDate={timer} questions={questions} />
+        <Exam targetDate={timer} questions={shuflledQuestions} />
       </div>
     </main>
   );
