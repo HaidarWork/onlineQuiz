@@ -143,7 +143,6 @@ const Exam = ({ targetDate, questions }) => {
       (answer) => answer.id !== activeQuestion
     );
     setAnswers(updateAnswers);
-    console.log(updateAnswers);
   };
 
   const onAnswerSelected = (answer, index) => {

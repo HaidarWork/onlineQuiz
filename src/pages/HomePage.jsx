@@ -24,7 +24,6 @@ export default function HomePage() {
 
   const handleClick = () => {
     const shuflledQuestions = shuffle(questions);
-    console.log(shuflledQuestions);
     navigate("/home/quiz", { state: shuflledQuestions });
   };
 
